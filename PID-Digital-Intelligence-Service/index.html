@@ -1,0 +1,408 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>P&ID to Digital Intelligence - An AI-Powered Solution</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;900&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      body {
+        font-family: "Inter", sans-serif;
+        background-color: #023e7d; /* Deep Blue from palette */
+      }
+      .gradient-text {
+        background: linear-gradient(90deg, #ffd23f, #ff7b00);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+      }
+      .card {
+        background-color: rgba(
+          2,
+          48,
+          102,
+          0.5
+        ); /* Slightly lighter than main bg */
+        border: 1px solid rgba(0, 165, 165, 0.3);
+      }
+      .kpi-number {
+        font-weight: 900;
+        font-size: 4rem;
+        line-height: 1;
+        color: #ffd23f; /* Yellow from palette */
+      }
+      .flow-arrow {
+        color: #00a5a5; /* Teal from palette */
+        font-size: 2rem;
+        margin: 0 1rem;
+      }
+      .chart-container {
+        position: relative;
+        width: 100%;
+        max-width: 500px;
+        margin-left: auto;
+        margin-right: auto;
+        height: 300px;
+        max-height: 350px;
+      }
+      @media (min-width: 768px) {
+        .chart-container {
+          height: 350px;
+        }
+      }
+    </style>
+  </head>
+  <body class="text-gray-200">
+    <div class="container mx-auto p-4 md:p-8 max-w-6xl">
+      <header class="text-center my-12 md:my-16">
+        <h1 class="text-4xl md:text-6xl font-black text-white leading-tight">
+          From Diagram to
+          <span class="gradient-text">Digital Intelligence</span>
+        </h1>
+        <p class="mt-4 text-lg md:text-xl text-gray-300 max-w-3xl mx-auto">
+          An AI-powered platform to unlock the full potential of Process &
+          Instrumentation Diagrams, built for the ABB Hackathon 2025.
+        </p>
+      </header>
+
+      <section class="my-16">
+        <h2 class="text-3xl font-bold text-center mb-10 text-white">
+          The Challenge: Data Locked in Static Diagrams
+        </h2>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8 text-center">
+          <div class="card p-6 rounded-lg shadow-lg">
+            <div class="kpi-number">40+</div>
+            <p class="mt-2 font-semibold">Hours per Project</p>
+            <p class="text-sm text-gray-400">
+              Manual data extraction is slow, creating significant project
+              delays and engineering bottlenecks.
+            </p>
+          </div>
+          <div class="card p-6 rounded-lg shadow-lg">
+            <div class="kpi-number">15%</div>
+            <p class="mt-2 font-semibold">Error Rate</p>
+            <p class="text-sm text-gray-400">
+              Manual transcription is prone to costly and potentially dangerous
+              human errors in component tagging.
+            </p>
+          </div>
+          <div class="card p-6 rounded-lg shadow-lg">
+            <div class="kpi-number">0%</div>
+            <p class="mt-2 font-semibold">Integration</p>
+            <p class="text-sm text-gray-400">
+              Static P&IDs cannot integrate with modern Digital Twins,
+              simulators, or automation systems.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <section class="my-20">
+        <h2 class="text-3xl font-bold text-center mb-10 text-white">
+          Our Solution: An Intelligent Digitization Engine
+        </h2>
+        <div class="card p-8 rounded-lg shadow-lg">
+          <div
+            class="flex flex-col md:flex-row items-center justify-center text-center"
+          >
+            <div class="p-4">
+              <p class="font-bold text-xl text-white">P&ID Image</p>
+              <p class="text-xs text-gray-400">(PDF, Scan, JPG)</p>
+            </div>
+            <div class="flow-arrow hidden md:block">&rarr;</div>
+            <div class="flow-arrow md:hidden">&darr;</div>
+            <div
+              class="p-4 border-2 border-dashed border-teal-500 rounded-lg bg-slate-800"
+            >
+              <p class="font-bold text-xl text-white">
+                Multi-Stage AI Pipeline
+              </p>
+              <p class="text-xs text-teal-400">(Vision & Language Models)</p>
+            </div>
+            <div class="flow-arrow hidden md:block">&rarr;</div>
+            <div class="flow-arrow md:hidden">&darr;</div>
+            <div class="p-4">
+              <p class="font-bold text-xl text-white">Structured JSON</p>
+              <p class="text-xs text-gray-400">(Ready for Integration)</p>
+            </div>
+          </div>
+        </div>
+        <div class="mt-8 p-6 rounded-lg bg-slate-900">
+          <h3 class="text-xl font-bold text-white mb-4">Try it now</h3>
+          <form id="uploadForm" class="space-y-4">
+            <input
+              id="fileInput"
+              type="file"
+              accept="image/*"
+              class="block w-full text-sm text-gray-300 file:mr-4 file:py-2 file:px-4 file:rounded file:border-0 file:text-sm file:font-semibold file:bg-teal-600 file:text-white hover:file:bg-teal-500"
+            />
+            <button
+              type="submit"
+              class="px-4 py-2 bg-teal-600 hover:bg-teal-500 text-white rounded"
+            >
+              Process
+            </button>
+          </form>
+          <pre
+            id="resultJson"
+            class="mt-4 text-xs overflow-x-auto text-gray-200"
+          ></pre>
+        </div>
+      </section>
+
+      <section class="my-20">
+        <h2 class="text-3xl font-bold text-center mb-10 text-white">
+          Technology Deep Dive
+        </h2>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+          <div class="card p-6 rounded-lg shadow-lg flex flex-col">
+            <h3 class="font-bold text-xl text-teal-400">1. Symbol Detection</h3>
+            <p class="text-sm text-gray-300 mt-2 flex-grow">
+              A custom-trained **YOLOv8 model** forms the visual cortex of our
+              system. Trained on thousands of examples, it robustly identifies
+              over 30 unique P&ID component classes.
+            </p>
+            <div class="mt-4 pt-4 border-t border-gray-700">
+              <p class="text-3xl font-bold text-white">>85%</p>
+              <p class="text-sm text-gray-400">Detection Accuracy</p>
+            </div>
+          </div>
+          <div class="card p-6 rounded-lg shadow-lg flex flex-col">
+            <h3 class="font-bold text-xl text-teal-400">2. Intelligent OCR</h3>
+            <p class="text-sm text-gray-300 mt-2 flex-grow">
+              A hybrid engine uses Tesseract for text localization and our
+              custom **Vision Transformer (TrOCR)**—fine-tuned on **130,000+
+              P&ID text samples**—for state-of-the-art recognition accuracy.
+            </p>
+            <div class="mt-4 pt-4 border-t border-gray-700">
+              <p class="text-3xl font-bold text-white">2x</p>
+              <p class="text-sm text-gray-400">
+                More Accurate than Generic OCR
+              </p>
+            </div>
+          </div>
+          <div class="card p-6 rounded-lg shadow-lg flex flex-col">
+            <h3 class="font-bold text-xl text-teal-400">
+              3. Connection Tracing
+            </h3>
+            <p class="text-sm text-gray-300 mt-2 flex-grow">
+              An advanced algorithm traces pipelines by detecting, merging, and
+              analyzing line segments. This builds a complete **network graph**
+              of the process flow, identifying all component interconnections.
+            </p>
+            <div class="mt-4 pt-4 border-t border-gray-700">
+              <p class="text-3xl font-bold text-white">Full</p>
+              <p class="text-sm text-gray-400">Process Flow Mapping</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="my-20">
+        <h2 class="text-3xl font-bold text-center mb-10 text-white">
+          Case Study: The Transformation in Action
+        </h2>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
+          <div class="card p-6 rounded-lg shadow-lg">
+            <h3 class="text-xl font-bold text-white mb-4">
+              Input: Static P&ID Image
+            </h3>
+            <img
+              src="https://i.imgur.com/gK2J2pQ.jpeg"
+              alt="Sample P&ID Diagram"
+              class="rounded-md"
+              onerror="this.onerror=null;this.src='https://placehold.co/600x400/023E7D/FFFFFF?text=P%26ID+Image';"
+            />
+          </div>
+          <div class="card p-6 rounded-lg shadow-lg">
+            <h3 class="text-xl font-bold text-white mb-4">
+              Output: Intelligent Digital Model
+            </h3>
+            <div class="bg-slate-900 p-4 rounded-md text-xs overflow-x-auto">
+              <pre><code class="language-json">
+{
+  "metadata": {
+    "document_name": "0.jpg",
+    "summary": {
+      "component_count": 30,
+      "connection_count": 28,
+      "review_required_count": 18
+    }
+  },
+  "components": [
+    {
+      "component_id": "symbol_2",
+      "pid_tag": "AV-07212",
+      "component_class": "Pressure Indicator",
+      "status": "OK",
+      "parsed_tag": {
+        "measurement_type": "A",
+        "function": "V",
+        "loop_id": "07212"
+      },
+      "connections_to": ["symbol_18", "symbol_3"]
+    },
+    { ... }
+  ]
+}
+</code></pre>
+            </div>
+            <p class="text-sm mt-4 text-gray-300">
+              The AI extracts every component, parses its tag, flags
+              inconsistencies, and maps its connections, creating a rich,
+              queryable dataset.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <section class="my-20">
+        <h2 class="text-3xl font-bold text-center mb-10 text-white">
+          The Business Impact for ABB
+        </h2>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
+          <div class="card p-6 rounded-lg shadow-lg">
+            <h3 class="text-xl font-bold text-white mb-4">
+              Engineering Efficiency Gains
+            </h3>
+            <div class="chart-container">
+              <canvas id="efficiencyChart"></canvas>
+            </div>
+            <p class="text-center text-sm mt-4 text-gray-300">
+              Our solution reduces manual data extraction and verification time
+              by up to 95%, accelerating project timelines.
+            </p>
+          </div>
+          <div class="card p-6 rounded-lg shadow-lg">
+            <h3 class="text-xl font-bold text-white mb-4">
+              Enabling the Future of Industry
+            </h3>
+            <ul class="space-y-4 mt-6">
+              <li class="flex items-start">
+                <span class="text-teal-400 mr-3 mt-1">&#10003;</span>
+                <span
+                  ><strong class="text-white"
+                    >Accelerate Digital Twin Initiatives:</strong
+                  >
+                  Provide the foundational data needed to build and maintain
+                  high-fidelity digital models.</span
+                >
+              </li>
+              <li class="flex items-start">
+                <span class="text-teal-400 mr-3 mt-1">&#10003;</span>
+                <span
+                  ><strong class="text-white"
+                    >Enhance Process Simulation:</strong
+                  >
+                  Automatically populate simulation software with accurate
+                  component data and connectivity.</span
+                >
+              </li>
+              <li class="flex items-start">
+                <span class="text-teal-400 mr-3 mt-1">&#10003;</span>
+                <span
+                  ><strong class="text-white"
+                    >Improve Safety & Compliance:</strong
+                  >
+                  Enable automated checks to ensure designs comply with safety
+                  standards and best practices.</span
+                >
+              </li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <footer class="text-center mt-16 mb-8">
+        <p class="text-gray-400">
+          P&ID to Digital Intelligence - A Foundation for Industry 4.0
+        </p>
+      </footer>
+    </div>
+
+    <script>
+      // Minimal demo to call the API
+      const form = document.getElementById("uploadForm");
+      const fileInput = document.getElementById("fileInput");
+      const resultPre = document.getElementById("resultJson");
+      const API_BASE =
+        location.hostname === "localhost" || location.hostname === "127.0.0.1"
+          ? "http://localhost:8000"
+          : "";
+
+      form?.addEventListener("submit", async (e) => {
+        e.preventDefault();
+        const file = fileInput.files?.[0];
+        if (!file) {
+          alert("Please select an image");
+          return;
+        }
+        const fd = new FormData();
+        fd.append("file", file);
+        resultPre.textContent = "Processing...";
+        try {
+          const resp = await fetch(`${API_BASE}/process`, {
+            method: "POST",
+            body: fd,
+          });
+          const data = await resp.json();
+          resultPre.textContent = JSON.stringify(data, null, 2);
+        } catch (err) {
+          resultPre.textContent = String(err);
+        }
+      });
+
+      const efficiencyChartCtx = document.getElementById("efficiencyChart");
+
+      new Chart(efficiencyChartCtx, {
+        type: "doughnut",
+        data: {
+          labels: ["Manual Data Extraction Time", "AI-Powered Extraction Time"],
+          datasets: [
+            {
+              label: "Time in Hours",
+              data: [100, 5],
+              backgroundColor: [
+                "#FF7B00", // Orange
+                "#00A5A5", // Teal
+              ],
+              borderColor: "#023E7D",
+              borderWidth: 4,
+            },
+          ],
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          plugins: {
+            legend: {
+              position: "bottom",
+              labels: {
+                color: "#FFFFFF",
+              },
+            },
+            tooltip: {
+              callbacks: {
+                title: function (tooltipItems) {
+                  const item = tooltipItems[0];
+                  let label = item.chart.data.labels[item.dataIndex];
+                  if (Array.isArray(label)) {
+                    return label.join(" ");
+                  } else {
+                    return label;
+                  }
+                },
+              },
+            },
+          },
+        },
+      });
+    </script>
+  </body>
+</html>

@@ -1,0 +1,8 @@
+Custom-TrOCR-PID
+symbol_outputs
+trocr-finetuned-pid-final
+venv
+env
+best.pt
+best1.pt
+
