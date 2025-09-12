@@ -283,7 +283,7 @@ const PIDUploadComponent = () => {
   const [exportingDXF, setExportingDXF] = useState(false);
   const [currentProcessingMessage, setCurrentProcessingMessage] = useState("");
   const fileInputRef = useRef(null);
-  
+
   // Use global chat context
   const { setPidData, openChat } = useChat();
 
@@ -348,21 +348,21 @@ const PIDUploadComponent = () => {
     try {
       // Show processing messages while API call is happening
       let messageIndex = 0;
-      
+
       // Start the API call immediately
       const apiPromise = getPrediction(file);
-      
+
       // Show processing messages
       const showNextMessage = () => {
         if (messageIndex < processingMessages.length && processing) {
           const currentMsg = processingMessages[messageIndex];
           setCurrentProcessingMessage(currentMsg.message);
           messageIndex++;
-          
+
           setTimeout(showNextMessage, currentMsg.duration);
         }
       };
-      
+
       // Start showing messages
       showNextMessage();
 
@@ -379,16 +379,19 @@ const PIDUploadComponent = () => {
       setCurrentProcessingMessage("Analysis complete! Preparing results...");
       await new Promise((resolve) => setTimeout(resolve, 1500));
 
+      // Navigate to results tab if we have a successful response
+      if (response) {
+        setActiveTab("results");
+      }
     } catch (error) {
       console.error("Error during processing:", error);
       setCurrentProcessingMessage("Analysis failed. Please try again.");
       toast.error("Failed to process P&ID. Please try again.");
       await new Promise((resolve) => setTimeout(resolve, 2000));
+      // Stay on processing tab or go back to preview on error
+      setActiveTab("preview");
     } finally {
       setProcessing(false);
-      if (results || results !== null) {
-        setActiveTab("results");
-      }
     }
   };
 
@@ -1104,7 +1107,6 @@ const PIDUploadComponent = () => {
           </div>
         </div>
       )}
-
     </div>
   );
 };
